@@ -19,7 +19,8 @@ void lib_puts(char* s){
 	}
 }
 
-int main(void){
+int os_main(void){
 		lib_puts("HelloOS\n");
+		while(1);
 		return 0;
 }
