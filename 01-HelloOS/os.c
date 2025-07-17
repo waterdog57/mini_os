@@ -14,7 +14,9 @@ void __puts(char* s){
 }
 
 void lib_puts(char* s){
-	while( *s++ == '\0'? return : __puts(s) );
+	while( *s++ != '\0'){
+		__puts(s);
+	}
 }
 
 int main(void){
