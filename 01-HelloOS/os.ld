@@ -24,24 +24,24 @@ SECTIONS{
 
 	.rodata : ALIGN(4)
 	{
-		PROVIDE(_rodatat=.);
+		PROVIDE(_rodatat = .);
 		*(.rodata .rodata.*);
-		PROVIDE(_rodata_end=.);
-	}>ram AT>ram :text
+		PROVIDE(_rodata_end = . );
+	} >ram AT>ram :text
 
-	.data : ALGN(4)
+	.data : ALIGN(4)
 	{
-		PROVIDE(_data_start=.);
+		PROVIDE(_data_start = . );
 		*(.sdata .sdata.*) *(.data .data.*);
-		PROVIDE(_data_end=.);
-	}>ram AT>ram :data
+		PROVIDE(_data_end = . );
+	} >ram AT>ram : data
 
 	.bss : ALIGN(4)
 	{
-		PROVIDE(_bss_start=.);
+		PROVIDE(_bss_start = . );
 		*(.sbss .sbss.*) *(.bss .bss.*);
-		PROVIDE(_bss_end=.);
-	}>ram AT>ram :data
+		PROVIDE(_bss_end = . );
+	} >ram AT>ram : data
 	
 	PROVIDE(_memory_start = ORIGIN(ram));
 	PROVIDE(_memory_end = ORIGIN(ram)+LENGTH(ram));
