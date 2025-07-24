@@ -8,14 +8,14 @@
 #define TE_MSK (1<<6)
 
 void __puts(char* s){
-		while( REG8(LSR) & TE_MSK ){
-			REG8(THR) = *s;
-		}
+		while(( REG8(LSR) & TE_MSK) == 0 );
+		REG8(THR) = *s;
+	
 }
 
 void lib_puts(char* s){
-	while( *s++ != '\0'){
-		__puts(s);
+	while( *s != '\0'){
+		__puts(s++);
 	}
 }
 
