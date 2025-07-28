@@ -7,6 +7,11 @@
 #define LSR (UART_BA + 0x5)
 #define TE_MSK (1<<6)
 
+void mytask(void){
+	lib_puts("mytask\n");
+	while(1);
+}
+
 void __puts(char* s){
 		while(( REG8(LSR) & TE_MSK) == 0 );
 		REG8(THR) = *s;
@@ -19,8 +24,12 @@ void lib_puts(char* s){
 	}
 }
 
+
+
 int os_main(void){
 		lib_puts("HelloOS\n");
-		while(1);
+
+		contextswitch();
+		lib_puts("end os main\n");
 		return 0;
 }
