@@ -8,7 +8,7 @@ OBJDUMP =riscv64-unknown-elf-objdump
 
 all:os.elf
 
-os.elf:start.s os.c
+os.elf:start.s sys.s os.c
 	$(CC) $(CFLAGS) -T os.ld -o os.elf $^
 
 

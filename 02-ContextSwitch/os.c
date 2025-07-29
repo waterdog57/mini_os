@@ -1,4 +1,6 @@
 #include <stdint.h>
+#include "riscv.h"
+#include "sys.h"
 
 #define REG8(reg) *((uint8_t*) reg)
 
@@ -7,10 +9,10 @@
 #define LSR (UART_BA + 0x5)
 #define TE_MSK (1<<6)
 
-void mytask(void){
-	lib_puts("mytask\n");
-	while(1);
-}
+#define STACK_SIZE 100
+
+extern void sys_switch();
+
 
 void __puts(char* s){
 		while(( REG8(LSR) & TE_MSK) == 0 );
@@ -24,12 +26,21 @@ void lib_puts(char* s){
 	}
 }
 
+void mytask(void){
+	lib_puts("mytask is work.\n");
+	while(1);
+}
 
 
 int os_main(void){
-		lib_puts("HelloOS\n");
+	struct context os_task, user_task;
+	uint8_t user_task_stack[STACK_SIZE];
 
-		contextswitch();
-		lib_puts("end os main\n");
-		return 0;
+	lib_puts("HelloOS\n");
+	user_task.ra = (uint32_t)mytask;
+	user_task.sp = (uint32_t)&user_task_stack[STACK_SIZE-1];
+
+	sys_switch(&os_task, &user_task);
+	lib_puts("end os main\n");
+	return 0;
 }
