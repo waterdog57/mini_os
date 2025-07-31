@@ -1,5 +1,5 @@
 CC :=riscv64-unknown-elf-gcc
-CFLAGS = -nostdlib -fno-builtin -mcmodel=medany -march=rv32ima_zicsr -mabi=ilp32
+CFLAGS = -nostdlib -fno-builtin -mcmodel=medany -march=rv32ima_zicsr -mabi=ilp32 -g -Og
 
 QEMU = qemu-system-riscv32
 QFLAGS = -nographic -smp 4 -machine virt -bios none
@@ -17,4 +17,4 @@ clean:
 qemu: $(TARGET)
 	@qemu-system-riscv32 -M ? | grep virt > /dev/null || exit
 	@echo "Press Ctrl-A and then X to exit QEMU"
-	$(QEMU) $(QFLAGS) -kernel os.elf
+	$(QEMU) $(QFLAGS) -kernel os.elf -s -S
