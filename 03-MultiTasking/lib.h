@@ -3,7 +3,7 @@
 
 #include <stdint.h>
 
-#define REG8(reg) *((uint8_t*) reg)
+#define REG8(reg) *((volatile uint8_t*) reg)
 
 #define UART_BA 0x10000000
 #define THR (UART_BA + 0x0)
