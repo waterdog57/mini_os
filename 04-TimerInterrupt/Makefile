@@ -17,4 +17,4 @@ clean:
 qemu: $(TARGET)
 	@qemu-system-riscv32 -M ? | grep virt > /dev/null || exit
 	@echo "Press Ctrl-A and then X to exit QEMU"
-	$(QEMU) $(QFLAGS) -kernel os.elf -s -S
+	$(QEMU) $(QFLAGS) -kernel os.elf
