@@ -2,6 +2,7 @@
 #define _RISCV_H_
 
 #include <stdint.h>
+#include "lib.h"
 
 struct context {
 	uint32_t ra;
@@ -19,5 +20,21 @@ struct context {
 	uint32_t s10;
 	uint32_t s11;
 };
+
+typedef uint32_t reg_t;
+
+
+#define CLINT_BASE     0x02000000
+#define CLINT_MTIMECMP(hartid) (CLINT_BASE + 0x4000 + 8 * (hartid))
+#define CLINT_MTIME    (CLINT_BASE + 0xBFF8)
+
+#define MIE_MEIE (1 << 11) // external
+#define MIE_MTIE (1 << 7)  // timer
+#define MIE_MSIE (1 << 3)  // software
+
+
+uint8_t r_mhartid(void);
+void w_mie(reg_t x);
+reg_t r_mie(void);
 
 #endif

@@ -4,6 +4,9 @@
 #include <stdint.h>
 
 #define REG8(reg) *((volatile uint8_t*) reg)
+#define REG16(reg) *((volatile uint16_t*) reg)
+#define REG32(reg) *((volatile uint32_t*) reg)
+#define REG64(reg) *((volatile uint64_t*) reg)
 
 #define UART_BA 0x10000000
 #define THR (UART_BA + 0x0)

@@ -39,3 +39,14 @@ sys_switch:
 	context_save a0
 	context_load a1
 	ret
+
+.global sys_timer
+.align 4
+sys_timer:
+	csrr a0, mepc
+	csrr a1, mcause
+	call timer_handler
+	# get timer handler return address a0
+	csrw mepc, a0
+	mret
+
