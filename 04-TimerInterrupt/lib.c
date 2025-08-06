@@ -29,24 +29,32 @@ void _myprintf( const uint8_t* s, va_list vl ){
 			switch(*s){
 				case 'd':
 					format_data = va_arg(vl, int32_t);
+					digitals = 0;
 					if(format_data >= 0){
-						digitals = 0;
 						temp = format_data;
-						// calculate digitals
-						do{
-							temp /= 10;
-							digitals++;
-						}while(temp);
-						for(i=digitals-1;i>=0;i--){
-							out_buf[pos+i]='0'+format_data%10;
-							format_data /= 10;
-						}
-						pos += digitals;
 					}else{
-					
+						temp = -format_data;
+						format_data = -format_data;
+						out_buf[pos++]='-';
+					}
+					do{
+						temp /= 10;
+						digitals++;
+					}while(temp);
+					for(i=digitals-1;i>=0;i--){
+						out_buf[pos+i]='0'+format_data%10;
+						format_data /= 10;
+					}
+					pos += (digitals);	
+					break;
+				case 's':
+					const char* str = va_arg(vl,const char*);
+					while(*str){
+						out_buf[pos++]= *str++;
 					}
 					break;
 				case 'x':
+
 					break;
 			}
 			format = 0;
