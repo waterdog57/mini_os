@@ -2,6 +2,7 @@
 #define __LIB_H__
 
 #include <stdint.h>
+#include <stdarg.h>
 
 #define REG8(reg) *((volatile uint8_t*) reg)
 #define REG16(reg) *((volatile uint16_t*) reg)
@@ -15,5 +16,6 @@
 
 extern void lib_puts(char* s);
 extern void delay(volatile uint32_t i);
+extern void myprintf(void* ptr,...);
 
 #endif

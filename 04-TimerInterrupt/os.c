@@ -27,6 +27,7 @@ void mytask2(void){
 int os_main(void){
 	uint8_t current_task = 0;
 	lib_puts("HelloOS\n");
+	myprintf("myprintf test\n");
 	// task_create( &mytask1 );
 	// task_create( &mytask2 );
 	// while(1){
