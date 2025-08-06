@@ -35,7 +35,7 @@ typedef uint32_t reg_t;
 #define MSTATUS_MIE (1 << 3)
 
 
-extern uint8_t r_mhartid(void);
+extern uint32_t r_mhartid(void);
 extern void w_mie(reg_t x);
 extern reg_t r_mie(void);
 extern void w_mtvec(reg_t x);

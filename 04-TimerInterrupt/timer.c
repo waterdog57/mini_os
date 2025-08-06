@@ -17,10 +17,10 @@ void timer_init(void){
 }
 
 reg_t timer_handler(reg_t epc, reg_t cause){
-    int id = r_mhartid();
+    uint32_t id = (uint32_t)r_mhartid();
     reg_t return_pc = epc;
     w_mie(r_mie() & ~(MIE_MTIE));
-    lib_puts("timer interrupt...\n");
+    myprintf("timer interrupt %d\n", id);
     timecmp_set(id, interval);
     w_mie(r_mie() | (MIE_MTIE));
     return return_pc;

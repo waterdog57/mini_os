@@ -2,7 +2,7 @@
 
 
 
-uint8_t r_mhartid(void){
+uint32_t r_mhartid(void){
     reg_t x;
     asm volatile( "csrr %0, mhartid" : "=r" (x) );
     return x;
