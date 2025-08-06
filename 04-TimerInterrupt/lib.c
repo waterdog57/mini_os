@@ -22,13 +22,13 @@ void _myprintf( const uint8_t* s, va_list vl ){
 	int8_t i = 0;
 	uint32_t pos = 0;
 	uint8_t format = 0;
-	int32_t format_data = 0, temp;
 	uint8_t digitals = 0;
 	for(;*s;s++){
 		if(format){
 			switch(*s){
 				case 'd':
-					format_data = va_arg(vl, int32_t);
+					int32_t format_data = va_arg(vl, int32_t);
+					int32_t temp;
 					digitals = 0;
 					if(format_data >= 0){
 						temp = format_data;
