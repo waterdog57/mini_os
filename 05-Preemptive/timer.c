@@ -16,13 +16,9 @@ void timer_init(void){
     w_mstatus( r_mstatus() | MSTATUS_MIE );
 }
 
-reg_t timer_handler(reg_t epc, reg_t cause){
+void timer_handler(void){
     uint32_t id = (uint32_t)r_mhartid();
-    reg_t return_pc = epc;
-    w_mie(r_mie() & ~(MIE_MTIE));
     myprintf("timer interrupt %d\n", id);
     timecmp_set(id, interval);
-    w_mie(r_mie() | (MIE_MTIE));
-    return return_pc;
 }
 

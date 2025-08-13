@@ -6,6 +6,7 @@
 #include "timer.h"
 
 extern uint8_t task_top;
+extern void trap_init(void);
 
 void mytask1(void){
 	lib_puts("mytask1\n");
@@ -38,6 +39,7 @@ int os_main(void){
 	// 	current_task = ( current_task + 1 ) % task_top;
 	// }
 	timer_init();
+	trap_init();
 	while(1){
 
 	}

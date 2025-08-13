@@ -8,6 +8,6 @@
 
 
 extern void timer_init(void);
-extern reg_t timer_handler(reg_t epc, reg_t cause);
+extern void timer_handler(void);
 
 #endif
