@@ -33,7 +33,7 @@
     lw s11,52(\load_addr)
 .endm
 
-.macro ret_save base
+.macro reg_save base
 	sw ra, 0(\base)
 	sw sp, 4(\base)
 	sw gp, 8(\base)
@@ -67,7 +67,7 @@
 	sw t6, 120(\base)
 .endm
 
-.macro ret_load base
+.macro reg_load base
 	lw ra, 0(\base)
 	lw sp, 4(\base)
 	lw gp, 8(\base)
@@ -121,11 +121,13 @@ sys_timer:
 .align 4
 trap_vector:
 	csrrw t6, mscratch, t6 #swap mscratch and t6
-	ret_save t6
+	reg_save t6
 	csrw mscratch, t6
 	csrr a0, mepc
 	csrr a1, mcause
 	call trap_handler
 	# get timer handler return address a0
 	csrw mepc, a0
+	csrr t6, mscratch
+    reg_load t6
 	mret

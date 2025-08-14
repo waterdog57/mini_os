@@ -18,6 +18,10 @@ void w_mstatus(reg_t x){
     asm volatile("csrw mstatus, %0" : : "r" (x));
 }
 
+void w_mscratch(reg_t x){
+    asm volatile("csrw mscratch, %0" : : "r" (x));
+}
+
 reg_t r_mepc(void){
     reg_t x;
     asm volatile( "csrr %0, mepc" : "=r" (x) );

@@ -4,6 +4,8 @@
 #include <stdint.h>
 #include "lib.h"
 
+#define NCPU (8)
+
 struct context {
 	uint32_t ra;
 	uint32_t sp;
@@ -41,6 +43,7 @@ extern reg_t r_mie(void);
 extern void w_mtvec(reg_t x);
 extern void w_mstatus(reg_t x);
 extern reg_t r_mstatus(void);
+extern void w_mscratch(reg_t x);
 
 
 #endif
