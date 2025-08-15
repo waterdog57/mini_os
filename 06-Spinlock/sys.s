@@ -131,3 +131,11 @@ trap_vector:
 	csrr t6, mscratch
     reg_load t6
 	mret
+
+.global atomic_swap
+.align 4
+atomic_swap:
+	li a5, 1
+	amoswap.w.aq a5,a5,0(a0)
+	mv a0, a5
+	ret
