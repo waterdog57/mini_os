@@ -1,9 +1,4 @@
-#include <stdint.h>
-#include "lib.h"
-#include "riscv.h"
-#include "sys.h"
-#include "task.h"
-#include "timer.h"
+#include "os.h"
 
 extern uint8_t task_top;
 extern void trap_init(void);
