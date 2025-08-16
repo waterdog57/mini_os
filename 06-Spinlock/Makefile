@@ -1,12 +1,13 @@
 CC :=riscv64-unknown-elf-gcc
 CFLAGS = -nostdlib -fno-builtin -mcmodel=medany -march=rv32ima_zicsr -mabi=ilp32 -g -Og
+GDB = riscv64-unknown-elf-gdb
 
 QEMU = qemu-system-riscv32
 QFLAGS = -nographic -smp 4 -machine virt -bios none
 
 OBJDUMP =riscv64-unknown-elf-objdump
 
-OBJ = start.s sys.s lib.c riscv.c task.c timer.c trap.c os.c
+OBJ = start.s sys.s lib.c riscv.c task.c timer.c trap.c lock.c os.c
 
 all:os.elf
 
@@ -20,3 +21,10 @@ qemu: $(TARGET)
 	@qemu-system-riscv32 -M ? | grep virt > /dev/null || exit
 	@echo "Press Ctrl-A and then X to exit QEMU"
 	$(QEMU) $(QFLAGS) -kernel os.elf
+
+.PHONY : debug
+debug:all
+	@echo "Press Ctrl-C and then input 'quit' to exit GDB and QEMU"
+	@echo "-------------------------------------------------------"
+	@${QEMU} ${QFLAGS} -kernel os.elf -s -S &
+	@${GDB} os.elf -q -x ./gdbinit
