@@ -1,7 +1,7 @@
 #include "riscv.h"
 #include "timer.h"
 
-#define interval 100000 // cycles; about 1 second in qemu.
+#define interval 10000000 // cycles; about 1 second in qemu.
 
 reg_t cpu_scratch[NCPU][32] = {0};
 

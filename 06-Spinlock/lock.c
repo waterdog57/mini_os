@@ -8,7 +8,7 @@ int lock_init( lock_t *lock){
 }
 
 void lock_acquire(lock_t *lock){
-    while(!atomic_swap(lock)){
+    while(atomic_swap(lock)){
         ;
     }
 }

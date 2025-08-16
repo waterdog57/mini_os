@@ -14,12 +14,13 @@ void mytask1(void){
 	lib_puts("mytask1\n");
 	while(1){
 		lib_puts("mytask1 is running...\n");
-		// lock_acquire(&lock);
+		lock_acquire(&lock);
 		temp = number;
-		// lock_free(&lock);
-		delay(100);
+		
+		delay(1000);
 		number = temp +1;
-		myprintf("count %d\n", number);
+		lock_free(&lock);
+		myprintf("mytask1 count %d\n", number);
 	}
 }
 void mytask2(void){
@@ -27,10 +28,11 @@ void mytask2(void){
 	lib_puts("mytask2\n");
 	while(1){
 		lib_puts("mytask2 is running...\n");
-		temp = number;
-		delay(100);
-		number = temp + 1;
-		myprintf("count %d\n", number);
+		lock_acquire(&lock);
+		myprintf("mytask2 count %d\n", number);
+		lock_free(&lock);
+		delay(1000);
+		
 	}
 }
 
@@ -41,7 +43,7 @@ int os_main(void){
 	// lib_puts("HelloOS\n");
 	myprintf("%d %d %d %d %d %d %d %s\n",0,1,12,123,1234,-1 ,-12, "water dog.");
 	task_create( &mytask1 );
-	// task_create( &mytask2 );
+	task_create( &mytask2 );
 
 	timer_init();
 	trap_init();
