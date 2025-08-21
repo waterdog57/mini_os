@@ -13,24 +13,23 @@ void mytask1(void){
 	int temp = 0;
 	lib_puts("mytask1\n");
 	while(1){
-		lib_puts("mytask1 is running...\n");
-		lock_acquire(&lock);
-		temp = number;
-		
+		// lib_puts("mytask1 is running...\n");
+		// lock_acquire(&lock);
+		// temp = number;
 		delay(1000);
-		number = temp +1;
-		lock_free(&lock);
-		myprintf("mytask1 count %d\n", number);
+		// number = temp +1;
+		// lock_free(&lock);
+		// myprintf("mytask1 count %d\n", number);
 	}
 }
 void mytask2(void){
 	int temp = 0;
 	lib_puts("mytask2\n");
 	while(1){
-		lib_puts("mytask2 is running...\n");
-		lock_acquire(&lock);
-		myprintf("mytask2 count %d\n", number);
-		lock_free(&lock);
+		// lib_puts("mytask2 is running...\n");
+		// lock_acquire(&lock);
+		// myprintf("mytask2 count %d\n", number);
+		// lock_free(&lock);
 		delay(1000);
 		
 	}
@@ -48,6 +47,7 @@ int os_main(void){
 	uart_init();
 	timer_init();
 	trap_init();
+	plic_init();
 	lock_init(&lock);
 
 	while(1){

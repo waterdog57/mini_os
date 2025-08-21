@@ -9,23 +9,31 @@
 #define PLIC_MCOMPLETE(hart)  (PLIC_BASE + 0x200004 + (hart)*0x1000)
 
 void plic_init(void){
-    int hart = r_tp();
+    int hart = r_mhartid();
     // QEMU Virt machine support 7 priority (1 - 7),
     // The "0" is reserved, and the lowest priority is "1".
     REG32( PLIC_PRIORITY(UART_IRQ) ) = 1;
     REG32( PLIC_MENABLE(hart) ) = 1 << UART_IRQ;
     REG32( PLIC_MTHRESHOLD( hart ) ) = 0;
-    w_mie(r_mie() | ( MIE_MSIE ));
+    w_mie(r_mie() | ( MIE_MEIE ));
     w_mstatus( r_mstatus() | MSTATUS_MIE );
 }
 
 int plic_claim(void){
-  int hart = r_tp();
+  int hart = r_mhartid();
   int irq = REG32( PLIC_MCLAIM(hart) );
   return irq;
 }
 
 void plic_complete(int irq){
-  int hart = r_tp();
+  int hart = r_mhartid();
   REG32( PLIC_MCOMPLETE(hart) )= irq;
+}
+
+void pr_plic_pending(void){
+    if (REG32(PLIC_PENDING(UART_IRQ / 32)) & (1 << (UART_IRQ % 32))) {
+			myprintf("UART IRQ is pending\n");
+		} else {
+			myprintf("No UART IRQ pending\n");
+	}
 }

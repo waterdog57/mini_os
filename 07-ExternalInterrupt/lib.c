@@ -19,10 +19,8 @@ void uart_init(void){
     REG8( IER ) = ier | (1 << 0);
 }
 
-void lib_isr(void){
-	myprintf("uart isr.\n");
-}
 
+	
 void delay(volatile uint32_t i){
     i *= 5000;
     while(i--);
@@ -32,6 +30,14 @@ void delay(volatile uint32_t i){
 static void __puts(char* s){
 		while(( REG8(LSR) & TE_MSK) == 0 );
 		REG8(THR) = *s;
+}
+
+void lib_isr(void){
+	char s = 0;
+	if(REG8(LSR) & DATA_READY){
+		s = REG8(RHR);
+		__puts( (char*)&s );
+	}
 }
 
 void lib_puts(char* s){

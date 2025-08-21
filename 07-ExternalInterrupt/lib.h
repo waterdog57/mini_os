@@ -21,6 +21,7 @@
 #define LSR (UART_BA + 0x5) //r
 
 #define TE_MSK (1<<6)
+#define DATA_READY (1<<0)
 
 extern void uart_init(void);
 extern void lib_isr(void);

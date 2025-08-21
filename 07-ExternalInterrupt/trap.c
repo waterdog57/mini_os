@@ -38,20 +38,21 @@ reg_t trap_handler(reg_t epc, reg_t cause){
                 break;
             case 7:
                 myprintf("timer interrupt\n");
-                w_mie(r_mie() & ~(MIE_MTIE));
                 timer_handler();
                 return_pc = (reg_t)&task_os;
-                w_mie(r_mie() | (MIE_MTIE));
                 break;
             case 11:
                 myprintf("external interrupt\n");
                 external_handler();
                 break;
+            default:
+                myprintf("other\n");
+                break;
         }
     
-       
     }else{
         // exception here.
+        myprintf("exception\n");
     }
     return return_pc;
 }

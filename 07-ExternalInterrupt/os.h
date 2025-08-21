@@ -16,6 +16,7 @@ typedef struct lock
 extern void plic_init(void);
 extern int plic_claim(void);
 extern void plic_complete(int irq);
+extern void pr_plic_pending(void);
 
 
 #endif
