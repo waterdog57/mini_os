@@ -7,7 +7,7 @@ QFLAGS = -nographic -smp 4 -machine virt -bios none
 
 OBJDUMP =riscv64-unknown-elf-objdump
 
-OBJ = start.s sys.s lib.c riscv.c task.c timer.c trap.c lock.c os.c
+OBJ = start.s sys.s lib.c riscv.c plic.c task.c timer.c trap.c lock.c os.c
 
 all:os.elf
 

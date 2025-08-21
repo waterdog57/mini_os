@@ -46,3 +46,11 @@ reg_t r_mie(void){
     return x;
 }
 
+reg_t r_tp()
+{
+  reg_t x;
+  asm volatile("mv %0, tp"
+               : "=r"(x));
+  return x;
+}
+

@@ -6,6 +6,9 @@
 
 #define NCPU (8)
 
+// IRQ Number
+#define UART_IRQ     ( 10 )
+
 struct context {
 	uint32_t ra;
 	uint32_t sp;
@@ -37,6 +40,7 @@ typedef uint32_t reg_t;
 #define MSTATUS_MIE (1 << 3)
 
 
+
 extern uint32_t r_mhartid(void);
 extern void w_mie(reg_t x);
 extern reg_t r_mie(void);
@@ -44,6 +48,7 @@ extern void w_mtvec(reg_t x);
 extern void w_mstatus(reg_t x);
 extern reg_t r_mstatus(void);
 extern void w_mscratch(reg_t x);
+extern reg_t r_tp(void);
 
 
 #endif

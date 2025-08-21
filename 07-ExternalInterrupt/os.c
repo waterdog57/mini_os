@@ -45,6 +45,7 @@ int os_main(void){
 	task_create( &mytask1 );
 	task_create( &mytask2 );
 
+	uart_init();
 	timer_init();
 	trap_init();
 	lock_init(&lock);

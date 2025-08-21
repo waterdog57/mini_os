@@ -1,12 +1,28 @@
 #include "riscv.h"
 #include "task.h"
 #include "timer.h"
+#include "os.h"
 
 extern void trap_vector();
 
 void trap_init(void){
     w_mtvec((reg_t)trap_vector);
-    w_mstatus( r_mstatus() | MSTATUS_MIE );
+   
+}
+
+static void external_handler()
+{
+    int irq = plic_claim();
+    if (irq == UART_IRQ){
+        lib_isr();
+    }
+    else if (irq){
+        myprintf("unexpected interrupt irq = %d\n", irq);
+    }
+
+    if (irq){
+        plic_complete(irq);
+    }
 }
 
 reg_t trap_handler(reg_t epc, reg_t cause){
@@ -29,6 +45,7 @@ reg_t trap_handler(reg_t epc, reg_t cause){
                 break;
             case 11:
                 myprintf("external interrupt\n");
+                external_handler();
                 break;
         }
     

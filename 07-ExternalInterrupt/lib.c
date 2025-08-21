@@ -2,6 +2,27 @@
 
 static char out_buf[1000]; // buffer for lib_vprintf()
 
+void uart_init(void){
+	/* disable interrupts */
+    REG8(IER) = 0;
+
+    /* Baud rate setting */
+    uint8_t lcr = REG8(LCR);
+    REG8( LCR ) = lcr | (1 << 7);
+	REG8(DLL) = 0x3;
+	REG8(DLM) = 0;
+
+    lcr = 0;
+    REG8( LCR ) = lcr | (3 << 0);
+
+    uint8_t ier = REG8(IER);
+    REG8( IER ) = ier | (1 << 0);
+}
+
+void lib_isr(void){
+	myprintf("uart isr.\n");
+}
+
 void delay(volatile uint32_t i){
     i *= 5000;
     while(i--);

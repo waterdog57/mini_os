@@ -13,6 +13,10 @@ typedef struct lock
     volatile int locked;
 }lock_t;
 
+extern void plic_init(void);
+extern int plic_claim(void);
+extern void plic_complete(int irq);
+
 
 #endif
 

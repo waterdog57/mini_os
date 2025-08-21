@@ -1,6 +1,6 @@
 CC :=riscv64-unknown-elf-gcc
 CFLAGS = -nostdlib -fno-builtin -mcmodel=medany -march=rv32ima_zicsr -mabi=ilp32 -g -Og
-GDB = riscv64-unknown-elf-gdb
+GDB = riscv64-elf-gdb
 
 QEMU = qemu-system-riscv32
 QFLAGS = -nographic -smp 4 -machine virt -bios none
